@@ -50,6 +50,7 @@ namespace Yolo5.NetCore.Examples
 
                 window.ShowImage(Mat.FromImageData(binary, ImreadModes.Color));
                 Cv2.WaitKey(30);
+                Console.WriteLine("CameraExample complete.");
             }
         }
     }
