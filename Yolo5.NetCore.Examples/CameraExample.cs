@@ -24,7 +24,7 @@ namespace Yolo5.NetCore.Examples
                 if (image.Empty())
                     break;
 
-                var png = image.ToMemoryStream(".png");
+                using var png = image.ToMemoryStream(".png");
                 using var frame = Image.FromStream(png);
 
                 using var yolo = new Yolo<YoloCocoModel>("Models/yolov5n6.onnx");
@@ -50,7 +50,6 @@ namespace Yolo5.NetCore.Examples
 
                 window.ShowImage(Mat.FromImageData(binary, ImreadModes.Color));
                 Cv2.WaitKey(30);
-                Console.WriteLine("CameraExample complete.");
             }
         }
     }

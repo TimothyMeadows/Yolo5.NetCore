@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -95,6 +96,9 @@ namespace Yolo5.NetCore
 
         private Tensor<float> ExtractPixels(Image image)
         {
+            var timer = new Stopwatch();
+            timer.Start();
+
             var bitmap = (Bitmap) image;
             var rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
             var bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadOnly, bitmap.PixelFormat);
@@ -119,6 +123,9 @@ namespace Yolo5.NetCore
 
                 bitmap.UnlockBits(bitmapData);
             }
+
+            timer.Stop();
+            Console.WriteLine($"{timer.ElapsedMilliseconds}ms");
 
             return tensor;
         }
